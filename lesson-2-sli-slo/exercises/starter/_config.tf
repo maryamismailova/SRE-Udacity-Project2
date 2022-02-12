@@ -1,8 +1,8 @@
 terraform {
    backend "s3" {
-     bucket = "udacity-tf-tscotto"
+     bucket = "terraform-marriant"
      key    = "terraform/terraform.tfstate"
-     region = "us-east-2"
+     region = "us-east-1"
    }
  }
 
