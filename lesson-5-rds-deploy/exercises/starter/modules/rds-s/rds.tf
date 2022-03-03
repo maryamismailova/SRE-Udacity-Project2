@@ -1,5 +1,3 @@
-variable primary_db_cluster_arn {}
-
 resource "aws_rds_cluster_parameter_group" "cluster_pg-s" {
   name   = "udacity-pg-s"
   family = "aurora5.6"
@@ -24,10 +22,14 @@ resource "aws_db_subnet_group" "udacity_db_subnet_group" {
 
 resource "aws_rds_cluster" "udacity_cluster-s" {
   cluster_identifier       = "udacity-db-cluster-s"
-  availability_zones       = []
+  availability_zones       = var.availability_zones
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.cluster_pg-s.name
   vpc_security_group_ids   = [aws_security_group.db_sg_2.id]
   db_subnet_group_name     = aws_db_subnet_group.udacity_db_subnet_group.name
+
+  source_region = var.rds_primary_source_region
+  replication_source_identifier= var.rds_primary_source_identifier
+
   engine_mode              = "provisioned"
   engine_version           = "5.6.mysql_aurora.1.19.1" 
   skip_final_snapshot      = true

@@ -7,6 +7,15 @@ resource "kubernetes_namespace" "udacity" {
    ]
  }
 
+ resource "kubernetes_namespace" "monitoring" {
+   metadata {
+     name = "monitoring"
+   }
+   depends_on = [
+     module.project_eks
+   ]
+ }
+
  resource "kubernetes_service" "prometheus-external" {
   metadata {
     name      = "prometheus-external"
@@ -30,7 +39,7 @@ resource "kubernetes_namespace" "udacity" {
   }
 
   depends_on = [
-    module.project_eks
+    module.project_eks, kubernetes_namespace.monitoring
   ]
 }
   resource "kubernetes_service" "grafana-external" {
@@ -56,6 +65,6 @@ resource "kubernetes_namespace" "udacity" {
   }
 
   depends_on = [
-    module.project_eks
+    module.project_eks, kubernetes_namespace.monitoring
   ]
 }

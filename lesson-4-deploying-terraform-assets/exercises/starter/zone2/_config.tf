@@ -1,14 +1,13 @@
 terraform {
    backend "s3" {
-     bucket = "terraform-marriant"
+     bucket = "udacity-tf-us-west-1-maryam"
      key    = "terraform/terraform.tfstate"
-     region = "us-east-1"
+     region = "us-west-1"
    }
  }
 
-  provider "aws" {
-   region = "us-east-2"
-   
+ provider "aws" {
+   region = "us-west-1"   
    default_tags {
      tags = local.tags
    }
