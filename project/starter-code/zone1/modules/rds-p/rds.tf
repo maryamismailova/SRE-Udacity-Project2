@@ -29,13 +29,14 @@ resource "aws_rds_cluster_parameter_group" "cluster_pg" {
 }
 
 resource "aws_db_subnet_group" "udacity_db_subnet_group" {
-  name       = "udacity_db_subnet_group"
+  name       = "udacity_db_subnet_group-p"
   subnet_ids = var.private_subnet_ids
 
 }
 resource "aws_rds_cluster" "udacity_cluster" {
   cluster_identifier       = "udacity-db-cluster"
-  availability_zones       = ["us-east-2a", "us-east-2b"]
+  availability_zones       = var.availability_zones
+  # availability_zones       = ["us-east-2a", "us-east-2b"]
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.cluster_pg.name
   database_name            = "udacityc2"
   master_username          = "udacity"

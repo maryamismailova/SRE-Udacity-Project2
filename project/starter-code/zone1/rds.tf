@@ -2,6 +2,7 @@ module "project_rds_p" {
   source = "./modules/rds-p"
   private_subnet_ids = module.vpc.private_subnet_ids
   vpc_id = module.vpc.vpc_id
+  availability_zones = var.primary_availability_zones
 }
 
 # module "project_rds_s" {
@@ -12,4 +13,5 @@ module "project_rds_p" {
 #   }
 #   private_subnet_ids = module.vpc_west.private_subnet_ids
 #   vpc_id = module.vpc_west.vpc_id
+#   availability_zones = var.secondary_availability_zones
 # }

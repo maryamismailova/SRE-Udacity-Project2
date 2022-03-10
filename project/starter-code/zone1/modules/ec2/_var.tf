@@ -15,3 +15,7 @@ variable "instance_type" {
 variable "tags" {
    default = {}
  }
+
+ variable "project_root_directory" {
+   
+ }

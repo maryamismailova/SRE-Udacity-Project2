@@ -7,10 +7,18 @@ resource "kubernetes_namespace" "udacity" {
    ]
  }
 
+ resource "kubernetes_namespace" "monitoring" {
+   metadata {
+     name = "monitoring"
+   }
+   depends_on = [
+     module.project_eks
+   ]
+ }
   resource "kubernetes_service" "grafana-external" {
   metadata {
     name      = "grafana-external"
-    namespace = "monitoring"
+    namespace = kubernetes_namespace.monitoring.metadata.0.name
     annotations = {
       "service.beta.kubernetes.io/aws-load-balancer-type"            = "nlb"
       "service.beta.kubernetes.io/aws-load-balancer-nlb-target-type" = "ip"

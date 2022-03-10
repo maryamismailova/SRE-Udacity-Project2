@@ -48,3 +48,14 @@ resource "aws_security_group" "ec2_sg" {
     Name = "ec2_sg"
   }
 }
+
+resource "null_resource" "update_public_ip" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  provisioner "local-exec" {
+    working_dir = var.project_root_directory
+    command = "cat prometheus-additional-template.yaml  | sed \"s/PUBLIC_IP/${aws_instance.ubuntu.0.public_ip}/g\" > prometheus-additional.yaml "
+  }
+}

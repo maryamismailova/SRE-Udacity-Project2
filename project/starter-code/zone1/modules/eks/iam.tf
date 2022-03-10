@@ -28,16 +28,16 @@
 
   # --------- EKS NODE ---------------------
 
-  data "aws_iam_policy_document" "eks_node_assume_role_policy" {
-   statement {
-     actions = ["sts:AssumeRole"]
+data "aws_iam_policy_document" "eks_node_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
 
-      principals {
-       type        = "Service"
-       identifiers = ["ec2.amazonaws.com"]
-     }
-   }
- }
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
 
   resource "aws_iam_role" "eks_node_cluster_role" {
    name               = "app-${var.name}-eks-node-role"
