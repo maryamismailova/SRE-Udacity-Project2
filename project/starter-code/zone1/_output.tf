@@ -18,8 +18,6 @@ output "account_id" {
    value = module.project_ec2.ec2_instance_public_ip
  }
 
- 
- output "grafana_creds" {
-   sensitive = true
-   value = "${data.kubernetes_secret.grafana.data.admin-user}:${data.kubernetes_secret.grafana.data.admin-password}"
+ output "lb_dns_name" {
+   value = module.alb.lb_dns
  }

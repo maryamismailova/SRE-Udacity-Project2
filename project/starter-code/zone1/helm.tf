@@ -18,7 +18,7 @@ resource "kubernetes_secret" "scrape-config" {
   }
 
   data = {
-    "prometheus-additional.yaml" = "${file("${var.project_root_directory}/prometheus-additional.yaml")}"
+    "prometheus-additional.yaml" = file("${var.project_root_directory}/prometheus-additional.yaml")
   }
 
 
@@ -36,16 +36,18 @@ resource "helm_release" "prometheus" {
   cleanup_on_fail = true
 
   values = [
-    "${file("${var.project_root_directory}/values.yaml")}"
+    file("${var.project_root_directory}/values.yaml")
   ]
 
   depends_on = [kubernetes_secret.scrape-config, module.project_eks]
 
 }
 
-data "kubernetes_secret" "grafana" {
-  metadata {
-    name = "prometheus-grafana"
-    namespace = helm_release.prometheus.namespace
-  }
-}
+# data "kubernetes_secret" "grafana" {
+#   metadata {
+#     name = "prometheus-grafana"
+#     namespace = helm_release.prometheus.namespace
+#   }
+
+#   depends_on = [kubernetes_secret.scrape-config, module.project_eks]
+# }
