@@ -15,3 +15,11 @@ variable "instance_type" {
 variable "tags" {
    default = {}
  }
+
+ variable "project_root_directory" { }
+
+ variable "lb_security_group" {}
+
+ variable "lb_target_group" {
+   description = "ARN of target group to attach EC2 instance to"
+ }
